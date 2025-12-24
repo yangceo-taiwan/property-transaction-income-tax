@@ -3,433 +3,569 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>賣房稅務攻略：一張圖秒懂新舊制 - 宏國地政｜易丞地政</title>
-    <meta name="description" content="賣房稅金差很大！一張圖看懂適用房地合一稅還是舊制，內含113年台南各區稅率與30秒自我檢測。">
-    <meta property="og:image" content="589980898376548561.jpg">
-    
+    <title>宏國地政｜易丞地政 - 舊制財產交易所得稅精算 V21.4</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* 品牌色系 */
-            --primary-dark: #1a5f7a;    /* 專業深藍 */
-            --primary-light: #3a8fb0;   /* 明亮藍 */
-            --accent-gold: #d4a017;     /* 質感金 */
-            --alert-red: #e74c3c;       /* 警示紅 */
-            --bg-gray: #f2f4f6;         /* 柔和灰 */
-            
-            /* 互動元素顏色 */
-            --btn-quiz: #27ae60;        /* 檢測按鈕綠 */
-            --btn-yt: #FF0000;          /* YouTube 紅 */
+            --primary: #1A3C5C; /* 宏國深藍 */
+            --gold: #C5A065;    /* 質感金 */
+            --light: #F4F7F6;
+            --white: #FFFFFF;
+            --text: #333333;
+            --border: #D1D5DB;
+            --accent-red: #D32F2F;
+            --line-green: #06C755;
+            --fb-blue: #1877F2;
         }
 
+        /* Nexus Protection: 禁止文字選取，防止直接複製內容 */
         body {
-            font-family: "Microsoft JhengHei", "Heiti TC", sans-serif;
-            background-color: var(--bg-gray);
-            margin: 0;
-            padding: 0 0 100px 0; /* 底部留白給懸浮按鈕 */
-            color: #333;
-            line-height: 1.7;
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+        /* 允許輸入框內容被選取，否則使用者無法修改輸入值 */
+        input, select {
+            -webkit-user-select: auto;
+            -ms-user-select: auto;
+            user-select: auto;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* --- Header: 雙品牌黃金比例 --- */
-        header {
-            background: #fff;
-            padding: 25px 20px;
-            border-bottom: 5px solid var(--accent-gold);
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-            text-align: center;
-            border-radius: 0 0 20px 20px;
-            margin-bottom: 30px;
-        }
-
-        .logo-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 15px;
-        }
-
-        .logo-img { height: 55px; width: auto; object-fit: contain; }
-        .logo-divider { font-size: 20px; color: #ddd; }
-
-        h1 {
-            color: var(--primary-dark);
-            font-size: 1.8em;
-            margin: 10px 0 5px 0;
-            letter-spacing: 1px;
-            line-height: 1.3;
-        }
-
-        .subtitle {
-            color: #666;
-            font-size: 1rem;
-            margin-bottom: 5px;
-        }
-
-        /* --- 1. 痛點與概念區 (Text Concept) --- */
-        .concept-section {
-            background: #fff;
-            border-radius: 15px;
-            padding: 30px 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 20px rgba(26, 95, 122, 0.08);
-            border-left: 6px solid var(--alert-red);
-        }
-
-        .highlight-title {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: var(--alert-red);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-
-        .highlight-title::before { content: '⚠️'; margin-right: 10px; }
-
-        .concept-text { font-size: 1.05em; color: #444; text-align: justify;}
-        .concept-text strong { 
-            background: linear-gradient(120deg, #fff0f0 0%, #ffecec 100%); 
-            color: #c0392b;
-            padding: 0 4px;
-        }
-
-        /* --- 2. 核心圖表區 (Infographic - NEW!) --- */
-        .chart-section {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
-            border: 2px solid var(--accent-gold); /* 金色邊框強調重要性 */
+        * { box-sizing: border-box; outline: none; }
+        body { 
+            font-family: 'Noto Sans TC', sans-serif; 
+            background: var(--light); 
+            color: var(--text); 
+            margin: 0; 
+            padding: 20px 20px 100px 20px;
+            line-height: 1.6;
             position: relative;
+            min-height: 100vh;
         }
 
-        .chart-label {
-            display: inline-block;
-            background: var(--accent-gold);
-            color: #fff;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 0.9em;
-            margin-bottom: 15px;
-            position: relative;
-            top: -32px; /* 讓標籤浮在邊框上 */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        .chart-img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            display: block;
-            margin: -15px auto 10px auto; /* 調整 margin 以適應標籤 */
-        }
-
-        .chart-hint {
-            font-size: 0.85em;
-            color: #888;
-            margin-top: 5px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 5px;
-        }
-
-        /* --- 3. 互動測驗卡片 (Quiz Action) --- */
-        .quiz-card {
-            background: linear-gradient(135deg, #1a5f7a 0%, #2c3e50 100%);
-            border-radius: 20px;
-            padding: 35px 20px;
-            text-align: center;
-            color: white;
-            box-shadow: 0 10px 30px rgba(26, 95, 122, 0.3);
-            margin-bottom: 40px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        /* 背景裝飾 */
-        .quiz-card::before {
-            content: '';
-            position: absolute;
-            top: -50px; left: -50px;
-            width: 150px; height: 150px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-        }
-
-        .quiz-title {
-            font-size: 1.4em;
-            margin-bottom: 10px;
-            font-weight: bold;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            position: relative;
-            z-index: 1;
-        }
-
-        .quiz-desc {
-            font-size: 1em;
-            margin-bottom: 25px;
-            opacity: 0.9;
-            position: relative;
-            z-index: 1;
-        }
-
-        .btn-start-quiz {
-            display: inline-block;
-            background-color: var(--btn-quiz);
-            color: white;
-            font-size: 1.2em;
-            font-weight: bold;
-            padding: 14px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transition: transform 0.2s;
-            position: relative;
-            z-index: 2;
-            animation: pulse 2s infinite;
-        }
-
-        .btn-start-quiz:hover { transform: scale(1.05); }
-
-        /* --- 4. 深度影音區 (Video Grid) --- */
-        .video-section-header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-        
-        .video-section-header h2 {
-            display: inline-block;
-            color: var(--primary-dark);
-            border-bottom: 3px solid var(--accent-gold);
-            padding-bottom: 5px;
-            margin: 0;
-            font-size: 1.4em;
-        }
-
-        .video-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 25px;
-        }
-
-        .video-card {
-            background: #fff;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
-        }
-
-        .video-card:hover { transform: translateY(-5px); }
-
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            background: #000;
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%; border: 0;
-        }
-
-        .video-info { padding: 18px; }
-
-        .tags-row { margin-bottom: 10px; }
-        
-        .video-tag {
-            display: inline-block;
-            font-size: 0.75em;
-            padding: 3px 8px;
-            border-radius: 4px;
-            margin-right: 5px;
-            font-weight: bold;
-        }
-        
-        .tag-new { background: #e3f2fd; color: #1565c0; }
-        .tag-old { background: #fff3e0; color: #e65100; }
-        .tag-inherit { background: #e8f5e9; color: #2e7d32; }
-
-        .video-title {
-            font-size: 1.1em;
-            font-weight: bold;
-            margin: 0;
-            color: #222;
-            line-height: 1.4;
-        }
-        
-        .video-desc {
-            font-size: 0.9em;
-            color: #666;
-            margin-top: 8px;
-        }
-
-        /* --- 底部連結 --- */
-        .more-link-box {
-            text-align: center;
-            margin-top: 30px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px dashed #ccc;
-        }
-        
-        .more-link-box a {
-            color: var(--primary-dark);
-            font-weight: bold;
-            text-decoration: none;
-        }
-
-        /* --- 懸浮按鈕 (Sticky) --- */
-        .sticky-footer {
+        /* 浮水印 */
+        .watermark-container {
             position: fixed;
-            bottom: 25px;
+            top: 15%;
             left: 50%;
             transform: translateX(-50%);
-            width: 90%;
-            max-width: 400px;
-            z-index: 1000;
+            width: 80%;
+            max-width: 500px;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.06;
             display: flex;
-            justify-content: center;
-        }
-
-        .sticky-yt-btn {
-            background-color: var(--btn-yt);
-            color: white;
-            text-decoration: none;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.1em;
-            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.3);
-            display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 10px;
-            width: 100%;
             justify-content: center;
-            transition: transform 0.2s;
+            gap: 20px;
         }
+        .watermark-container img { width: 100%; height: auto; object-fit: contain; }
+
+        /* Header */
+        .header { text-align: center; margin-bottom: 30px; background: var(--white); padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 5px solid var(--gold); position: relative; z-index: 1; }
+        .logo-group { display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 15px; }
+        .logo-group img { height: 60px; object-fit: contain; }
+        .header h1 { font-size: 1.8rem; color: var(--primary); margin: 5px 0; font-weight: 800; }
+        .header .subtitle { color: #666; font-size: 1rem; }
+
+        /* Container */
+        .container { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+
+        /* Tabs */
+        .tab-group { display: flex; margin-bottom: 20px; background: #E0E0E0; border-radius: 8px; padding: 4px; }
+        .tab { flex: 1; text-align: center; padding: 12px; cursor: pointer; border-radius: 6px; font-weight: bold; color: #666; transition: 0.3s; }
+        .tab.active { background: var(--primary); color: white; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+
+        /* Cards */
+        .card { background: var(--white); padding: 25px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px; display: none; }
+        .card.active { display: block; animation: fadeIn 0.5s; }
+        .card-header { font-size: 1.2rem; font-weight: 700; color: var(--primary); border-bottom: 2px solid #F0F0F0; padding-bottom: 10px; margin-bottom: 20px; }
+
+        /* Inputs */
+        .input-group { margin-bottom: 15px; }
+        .label { display: block; font-size: 0.9rem; font-weight: 600; color: #555; margin-bottom: 5px; }
+        .input-row { display: flex; gap: 15px; align-items: flex-end; }
+        .input-col { flex: 1; }
         
-        .sticky-yt-btn:active { transform: scale(0.95); }
+        input, select { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; text-align: right; background: #FAFAFA; }
+        select { text-align: left; }
+        input:focus, select:focus { border-color: var(--primary); background: #FFF; box-shadow: 0 0 0 3px rgba(26, 60, 92, 0.1); }
+        .input-readonly { background: #EEE; color: #777; cursor: default; }
 
-        /* 動畫 */
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(39, 174, 96, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0); }
+        /* Helper & Zones */
+        .helper-box { background: #FFF8E1; border: 1px dashed var(--gold); padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+        .helper-title { font-size: 0.9rem; font-weight: bold; color: #B7791F; margin-bottom: 10px; }
+        
+        .luxury-calc-zone { 
+            display: none; background: #FFEBEE; border: 1px solid #FFCDD2; padding: 15px; border-radius: 8px; margin-top: 15px; animation: fadeIn 0.5s;
         }
+        .luxury-title { color: var(--accent-red); font-weight: bold; margin-bottom: 10px; display: block; }
 
-        @media (min-width: 768px) {
-            .video-grid { grid-template-columns: 1fr 1fr; }
+        .btn-calc { background: var(--primary); color: white; border: none; padding: 5px 15px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; height: 42px; margin-top: 2px; }
+
+        /* Results */
+        .result-box { background: #EBF5FB; border-left: 5px solid var(--primary); padding: 20px; border-radius: 4px; margin-top: 25px; }
+        .result-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 1rem; border-bottom: 1px solid #D6EAF8; padding-bottom: 5px; }
+        .result-val { font-weight: bold; color: var(--primary); font-family: 'Consolas', monospace; }
+        .result-val.highlight { color: var(--accent-red); font-size: 1.2rem; }
+        .luxury-warning { color: var(--accent-red); font-size: 0.85rem; margin-top: 10px; padding: 10px; background: #FFEBEE; border-radius: 4px; display: none; }
+
+        /* Footer */
+        .footer-copyright { text-align: center; color: #999; font-size: 0.8rem; margin-top: 40px; position: relative; z-index: 1; }
+        .contact-bar { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+        .btn-contact { display: inline-flex; align-items: center; gap: 5px; padding: 10px 15px; border-radius: 50px; text-decoration: none; color: white; font-weight: bold; font-size: 0.9rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s; }
+        .btn-contact:hover { transform: translateY(-2px); }
+        .btn-line { background: var(--line-green); }
+        .btn-fb { background: var(--fb-blue); }
+        .btn-google { background: #EA4335; }
+        .btn-vip { background: var(--gold); }
+        .btn-print { background: var(--text); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        @media print {
+            .btn-contact, .tab-group { display: none; }
+            .card { display: block; box-shadow: none; border: 1px solid #000; margin-bottom: 30px; }
+            #tab1, #tab2 { display: block !important; }
+            body { padding: 0; }
+            .watermark-container { opacity: 0.05; }
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;"> <div class="watermark-container">
+    <img src="宏國地政封面.jpg" alt="宏國地政">
+    <img src="易丞logo-01.jpg" alt="易丞地政">
+</div>
+
+<div class="header">
+    <div class="logo-group">
+        <img src="宏國地政封面.jpg" alt="宏國地政">
+        <img src="易丞logo-01.jpg" alt="易丞地政">
+    </div>
+    <h1>宏國地政｜易丞地政</h1>
+    <div class="subtitle">舊制財產交易所得稅精算系統 V21.4</div>
+</div>
 
 <div class="container">
-    
-    <header>
-        <div class="logo-wrapper">
-            <img src="宏國地政封面.jpg" alt="宏國地政" class="logo-img">
-            <span class="logo-divider">✕</span>
-            <img src="易丞logo-01.jpg" alt="易丞地政" class="logo-img">
-        </div>
-        <h1>賣房到底要繳多少稅？💸</h1>
-        <p class="subtitle">專業解析：新制 vs 舊制，您是哪一種？</p>
-    </header>
 
-    <section class="concept-section">
-        <div class="highlight-title">搞錯「時間點」，稅金少賺一台車！</div>
-        <p class="concept-text">
-            賣房稅制主要分為「舊制」與「新制 (房地合一稅)」，兩者稅金可能相差幾十萬！<br>
-            很多屋主以為「持有很久」就是舊制，或是「繼承房子」一定免稅，這其實是最大的誤區。
-        </p>
-    </section>
-
-    <section class="chart-section">
-        <span class="chart-label">🌟 一張圖秒懂判斷邏輯</span>
-        
-        <img src="589980898376548561.jpg" alt="台南賣屋稅費知識 - 新舊制判斷圖表" class="chart-img">
-        
-        <div class="chart-hint">
-            <span>👆</span> 點擊或長按圖片可放大儲存，隨時查詢 113 年各區稅率
-        </div>
-    </section>
-
-    <section class="quiz-card">
-        <h2 class="quiz-title">看完圖還是不確定？</h2>
-        <p class="quiz-desc">
-            沒關係！我們開發了【30秒自我檢測站】<br>
-            系統幫您自動判斷，免註冊、免登入。
-        </p>
-        <a href="https://yangceo-taiwan.github.io/Property-tax-test/" target="_blank" class="btn-start-quiz">
-            👉 點我開始 30 秒檢測
-        </a>
-    </section>
-
-    <div class="video-section-header">
-        <h2>📺 房地合一稅影音專區</h2>
+    <div class="tab-group">
+        <div class="tab active" onclick="switchTab('tab1')">情境 A：標準認定<br><span style="font-size:0.8rem">(101.08前 / 豪宅稅)</span></div>
+        <div class="tab" onclick="switchTab('tab2')">情境 B：核實認定<br><span style="font-size:0.8rem">(101.08後 / 建商交易)</span></div>
     </div>
 
-    <div class="video-grid">
+    <div id="tab1" class="card active">
+        <div class="card-header">
+            <span>房屋評定現值 × 標準稅率 (或豪宅房地比)</span>
+        </div>
+
+        <div class="helper-box">
+            <div class="helper-title">💡 不知道房屋評定現值？從稅單反推</div>
+            <div class="input-row">
+                <div class="input-col">
+                    <label class="label">房屋稅單金額 (元)</label>
+                    <input type="number" id="taxBill_A" placeholder="例: 5000">
+                </div>
+                <div class="input-col">
+                    <label class="label">稅率 %</label>
+                    <select id="taxRate_A">
+                        <option value="1.2">1.2% (自用住宅)</option>
+                        <option value="1.5">1.5% (非自用)</option>
+                        <option value="2.4">2.4% (非自用)</option>
+                        <option value="3">3.0% (營業用)</option>
+                    </select>
+                </div>
+                <div class="input-col" style="flex:0 0 80px;">
+                    <button class="btn-calc" onclick="calcHouseVal('A')">反推</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label class="label">房屋評定現值 (元)</label>
+            <input type="number" id="houseVal_A" placeholder="請輸入或由上方反推" oninput="calcA()">
+        </div>
+
+        <div class="input-row">
+            <div class="input-col">
+                <label class="label">交易縣市</label>
+                <select id="city_A" onchange="updateDistricts('A'); calcA();">
+                    <option value="">請選擇</option>
+                    <option value="Taipei">臺北市</option>
+                    <option value="NewTaipei">新北市</option>
+                    <option value="Taoyuan">桃園市</option>
+                    <option value="Taichung">臺中市</option>
+                    <option value="Tainan">臺南市</option>
+                    <option value="Kaohsiung">高雄市</option>
+                    <option value="OtherCity">其他縣市</option>
+                </select>
+            </div>
+            <div class="input-col">
+                <label class="label">行政區 (標準率)</label>
+                <select id="district_A" onchange="calcA()">
+                    <option value="0">請先選縣市</option>
+                </select>
+            </div>
+        </div>
         
-        <article class="video-card">
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/f22YfIUhxWE" allowfullscreen title="財政部新規與舊制出售"></iframe>
+        <div class="input-row">
+            <div class="input-col">
+                <label class="label">房地成交總價 (萬元)</label>
+                <input type="number" id="totalPrice_A" placeholder="判斷豪宅稅基準" oninput="calcA()">
             </div>
-            <div class="video-info">
-                <div class="tags-row">
-                    <span class="video-tag tag-new">🔥 最新法規</span>
-                    <span class="video-tag tag-old">舊制出售</span>
-                </div>
-                <h3 class="video-title">財政部新規定‼️ 舊制房屋出售要注意什麼⁉️</h3>
-                <p class="video-desc">101年以前取得的房子就沒事嗎？注意「豪宅線」與「設算標準」的變動！</p>
+            <div class="input-col">
+                <label class="label">專有部分坪數 (不含車位)</label>
+                <input type="number" id="areaPing_A" placeholder="判斷單價豪宅" oninput="calcA()">
             </div>
-        </article>
+        </div>
 
-        <article class="video-card">
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/2_GH4Q1IAi4" allowfullscreen title="繼承後出售適用舊制還新制"></iframe>
-            </div>
-            <div class="video-info">
-                <div class="tags-row">
-                    <span class="video-tag tag-inherit">🏠 繼承專區</span>
-                    <span class="video-tag tag-new">節稅選擇</span>
-                </div>
-                <h3 class="video-title">繼承後出售，該選舊制還是新制❓</h3>
-                <p class="video-desc">長輩留下的房子，取得成本怎麼算？教你如何合法節稅！</p>
-            </div>
-        </article>
+        <div id="unitPriceDisplay" style="text-align:right; font-size:0.8rem; color:#666; margin-top:-10px; margin-bottom:10px; display:none;">
+            計算單價：<span id="valUnitPrice">0</span> 萬/坪
+        </div>
 
+        <div id="luxuryZone_A" class="luxury-calc-zone">
+            <span class="luxury-title">⚠️ 已達豪宅門檻！需輸入土地資料計算房地比</span>
+            <div style="font-size:0.85rem; color:#D32F2F; margin-bottom:10px;">
+                判定原因：<span id="luxuryReason_A"></span>
+            </div>
+            <div class="input-row">
+                <div class="input-col">
+                    <label class="label">土地公告現值 (元/m²)</label>
+                    <input type="number" id="landPrice_A" oninput="calcA()">
+                </div>
+                <div class="input-col">
+                    <label class="label">土地移轉面積 (m²)</label>
+                    <input type="number" id="landArea_A" oninput="calcA()">
+                </div>
+            </div>
+            <div class="input-group">
+                <label class="label">土地公告現值總額 (元)</label>
+                <input type="number" id="totalLandVal_A" class="input-readonly" readonly>
+            </div>
+            <p style="font-size:0.8rem; color:#666;">
+                *計算公式：成交總價 × (房屋現值 / (房屋現值+土地現值)) × 20%
+            </p>
+        </div>
+
+        <div class="result-box">
+            <div class="result-row">
+                <span>計算方式：</span>
+                <span class="result-val" id="calcMethod_A">標準率法</span>
+            </div>
+            <div class="result-row">
+                <span>核定財產交易所得：</span>
+                <span class="result-val highlight" id="result_A">0 元</span>
+            </div>
+        </div>
     </div>
 
-    <div class="more-link-box">
-        <p>想了解更多細節？我們整理了完整的系列影片：</p>
-        <a href="https://yangceo-taiwan.github.io/-Property-tax/" target="_blank">
-            🔗 點此進入【房地合一稅】完整影音庫
-        </a>
+    <div id="tab2" class="card">
+        <div class="card-header">
+            <span>房地比核實認定 (實價課稅)</span>
+        </div>
+
+        <div class="input-row">
+            <div class="input-col">
+                <label class="label">賣出總金額 (萬)</label>
+                <input type="number" id="sellPrice_B" oninput="calcB()">
+            </div>
+            <div class="input-col">
+                <label class="label">買入總金額 (萬)</label>
+                <input type="number" id="buyPrice_B" oninput="calcB()">
+            </div>
+        </div>
+        <div class="input-group">
+            <label class="label">相關可扣除費用 (萬)</label>
+            <input type="number" id="expenses_B" value="0" placeholder="仲介費、契稅、代書費、裝修費" oninput="calcB()">
+        </div>
+
+        <div class="helper-box" style="border-color: var(--primary);">
+            <div class="helper-title">📐 房地比計算 (土地公告現值 + 房屋評定現值)</div>
+            
+            <div class="input-row">
+                <div class="input-col">
+                    <label class="label">土地公告現值 (元/m²)</label>
+                    <input type="number" id="landPricePerSqm" oninput="calcLandValB()">
+                </div>
+                <div class="input-col">
+                    <label class="label">土地移轉面積 (m²)</label>
+                    <input type="number" id="landAreaSqm" oninput="calcLandValB()">
+                </div>
+            </div>
+            <div class="input-group">
+                <label class="label">土地公告現值總額 (元)</label>
+                <input type="number" id="totalLandVal_B" class="input-readonly" readonly>
+            </div>
+
+            <div class="input-row">
+                <div class="input-col">
+                    <label class="label">房屋評定現值 (元)</label>
+                    <input type="number" id="houseVal_B" oninput="calcB()">
+                </div>
+                <div class="input-col" style="flex:0 0 80px;">
+                    <button class="btn-calc" onclick="calcHouseVal('B')">反推</button>
+                </div>
+            </div>
+            <div id="helperB" style="display:none; margin-top:10px; background:#fff; padding:10px; border-radius:4px;">
+                 稅單金額 <input type="number" id="taxBill_B" style="width:80px; text-align:right;"> ÷ 稅率 <input type="number" id="taxRate_B" value="1.2" style="width:50px; text-align:right;">% 
+                 <button onclick="runHelperB()" style="cursor:pointer; padding:2px 5px;">確認</button>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label class="label">計算結果：房地比 (房屋價值佔比)</label>
+            <input type="text" id="houseRatio_B" class="input-readonly" readonly style="font-weight:bold; color:var(--primary);">
+        </div>
+        
+        <div class="result-box">
+            <div class="result-row">
+                <span>房地總獲利 (售-買-費)：</span>
+                <span class="result-val" id="totalProfit_B">0 元</span>
+            </div>
+            <div class="result-row" style="background:#FFF9C4;">
+                <span>★ 財產交易所得 (依房地比)：</span>
+                <span class="result-val highlight" id="finalIncome_B">0 元</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-copyright">
+        <p>Copyright © 宏國地政｜易丞地政出版 All Rights Reserved.</p>
+        <div class="contact-bar">
+            <a href="https://line.me/R/ti/p/@604gpqef" target="_blank" class="btn-contact btn-line">
+                <i>💬</i> 官方 LINE
+            </a>
+            <a href="https://maps.app.goo.gl/qyKhdrKsG5QBo2BW8" target="_blank" class="btn-contact btn-google">
+                <i>📍</i> Google 評論
+            </a>
+            <a href="https://www.facebook.com/062582589a/" target="_blank" class="btn-contact btn-fb">
+                <i>f</i> FB 粉絲頁
+            </a>
+            <a href="https://line.me/ti/g2/aVklWxyLP1RtfstQsslGQOlP4KViuFI7PPucdQ?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="btn-contact btn-vip">
+                <i>👑</i> VIP 社群
+            </a>
+            <button onclick="window.print()" class="btn-contact btn-print">
+                <i>🖨️</i> 列印/存檔
+            </button>
+        </div>
     </div>
 
 </div>
 
-<div class="sticky-footer">
-    <a href="https://www.youtube.com/@ycl_real_estate8888?sub_confirmation=1" target="_blank" class="sticky-yt-btn">
-        ▶ 訂閱頻道，掌握最新省稅祕技
-    </a>
-</div>
+<script>
+    // --- 稅率與豪宅標準資料 ---
+    const taxData = {
+        'Taipei': { 
+            'luxury_price': 6000, 'luxury_unit': 120,
+            'districts': { '中山區': 48, '松山區': 48, '中正區': 48, '大安區': 48, '信義區': 48, '士林區': 46, '內湖區': 46, '大同區': 46, '南港區': 46, '北投區': 45, '萬華區': 45, '文山區': 45 } 
+        },
+        'NewTaipei': { 
+            'luxury_price': 4000, 'luxury_unit': 75,
+            'districts': { '板橋區': 44, '永和區': 44, '中和區': 44, '三重區': 44, '新店區': 44, '蘆洲區': 44, '新莊區': 44, '土城區': 44, '林口區': 42, '汐止區': 41, '樹林區': 41, '泰山區': 36, '五股區': 34, '三峽區': 34, '淡水區': 29, '八里區': 27, '鶯歌區': 24, '深坑區': 23, '其他': 14 } 
+        },
+        'Taoyuan': { 
+            'luxury_price': 3000, 'luxury_unit': 50,
+            'districts': { '桃園區': 33, '中壢區': 33, '龜山區': 32, '蘆竹區': 32, '八德區': 32, '平鎮區': 26, '大園區': 24, '龍潭區': 23, '楊梅區': 23, '新屋區': 18, '觀音區': 16, '復興區': 8 } 
+        },
+        'Taichung': { 
+            'luxury_price': 3000, 'luxury_unit': 50,
+            'districts': { '西屯區': 35, '南屯區': 35, '北屯區': 32, '西區': 32, '東區': 30, '南區': 30, '北區': 30, '中區': 26, '烏日區': 24, '太平區': 24, '大里區': 24, '潭子區': 22, '豐原區': 22, '沙鹿區': 22, '大雅區': 22, '霧峰區': 21, '其他': 15 } 
+        },
+        'Tainan': { 
+            'luxury_price': 3000, 'luxury_unit': 50,
+            'districts': { '東區': 30, '安南區': 28, '中西區': 28, '北區': 28, '安平區': 28, '永康區': 26, '南區': 26, '新市區': 24, '善化區': 23, '安定區': 22, '歸仁區': 22, '仁德區': 22, '新營區': 20, '其他': 10 } 
+        },
+        'Kaohsiung': { 
+            'luxury_price': 3000, 'luxury_unit': 50,
+            'districts': { '左營區': 37, '鼓山區': 37, '三民區': 37, '苓雅區': 35, '前鎮區': 35, '前金區': 34, '楠梓區': 33, '小港區': 33, '新興區': 32, '鳳山區': 29, '橋頭區': 26, '仁武區': 26, '鹽埕區': 26, '其他': 15 } 
+        },
+        'OtherCity': { 
+            'luxury_price': 2200, 'luxury_unit': 35,
+            'districts': { '新竹縣市': 37, '一般縣市': 18 } 
+        }
+    };
+
+    function switchTab(tabId) {
+        document.querySelectorAll('.card').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+
+    function updateDistricts(type) {
+        let city = document.getElementById('city_' + type).value;
+        let distSelect = document.getElementById('district_' + type);
+        distSelect.innerHTML = '<option value="0">請選擇區域</option>';
+        if (taxData[city]) {
+            for (let [dist, rate] of Object.entries(taxData[city].districts)) {
+                let opt = document.createElement('option');
+                opt.value = rate;
+                opt.text = dist + ` (${rate}%)`;
+                distSelect.add(opt);
+            }
+        }
+    }
+
+    // --- 反推房屋現值 ---
+    function calcHouseVal(type) {
+        if(type === 'B') { document.getElementById('helperB').style.display = 'block'; return; }
+        let tax = parseFloat(document.getElementById('taxBill_' + type).value) || 0;
+        let rate = parseFloat(document.getElementById('taxRate_' + type).value) || 0;
+        if (rate > 0) {
+            let val = Math.round(tax / (rate / 100));
+            document.getElementById('houseVal_' + type).value = val;
+            if(type === 'A') calcA();
+        }
+    }
+    function runHelperB() {
+        let tax = parseFloat(document.getElementById('taxBill_B').value) || 0;
+        let rate = parseFloat(document.getElementById('taxRate_B').value) || 0;
+        if (rate > 0) {
+            let val = Math.round(tax / (rate / 100));
+            document.getElementById('houseVal_B').value = val;
+            document.getElementById('helperB').style.display = 'none';
+            calcB();
+        }
+    }
+
+    // --- 情境 A (含豪宅單價與總價判斷) ---
+    function calcA() {
+        let houseVal = parseFloat(document.getElementById('houseVal_A').value) || 0;
+        let distRate = parseFloat(document.getElementById('district_A').value) || 0;
+        let totalPrice = parseFloat(document.getElementById('totalPrice_A').value) || 0; // 萬元
+        let areaPing = parseFloat(document.getElementById('areaPing_A').value) || 0; // 專有坪數
+        let city = document.getElementById('city_A').value;
+
+        // 豪宅門檻檢查 (雙軌)
+        let isLuxury = false;
+        let reason = "";
+
+        if (city && taxData[city]) {
+            let limitPrice = taxData[city].luxury_price;
+            let limitUnit = taxData[city].luxury_unit;
+            
+            let unitPrice = (areaPing > 0) ? (totalPrice / areaPing) : 0;
+
+            // 1. 總價檢查
+            if (totalPrice >= limitPrice) {
+                isLuxury = true;
+                reason = `成交總價 ${totalPrice}萬 ≧ ${limitPrice}萬`;
+            } 
+            // 2. 單價檢查
+            else if (unitPrice >= limitUnit) {
+                isLuxury = true;
+                reason = `成交單價 ${unitPrice.toFixed(1)}萬/坪 ≧ ${limitUnit}萬/坪`;
+            }
+            
+            // 顯示單價參考
+            let unitDisplay = document.getElementById('unitPriceDisplay');
+            if(areaPing > 0) {
+                unitDisplay.style.display = 'block';
+                document.getElementById('valUnitPrice').innerText = unitPrice.toFixed(1);
+            } else {
+                unitDisplay.style.display = 'none';
+            }
+        }
+
+        let luxuryZone = document.getElementById('luxuryZone_A');
+        
+        if (isLuxury) {
+            luxuryZone.style.display = 'block';
+            document.getElementById('luxuryReason_A').innerText = reason;
+            
+            // 豪宅計算：房地比 * 20%
+            let landPrice = parseFloat(document.getElementById('landPrice_A').value) || 0;
+            let landArea = parseFloat(document.getElementById('landArea_A').value) || 0;
+            let totalLand = Math.round(landPrice * landArea);
+            document.getElementById('totalLandVal_A').value = totalLand;
+
+            let ratio = 0;
+            if (houseVal + totalLand > 0) {
+                ratio = houseVal / (houseVal + totalLand);
+            }
+            
+            // 歸屬房屋收入 = 總價(元) * 房地比
+            let totalPriceYuan = totalPrice * 10000;
+            let houseIncome = totalPriceYuan * ratio;
+            // 所得額 = 收入 * 20%
+            let income = Math.round(houseIncome * 0.20);
+            
+            document.getElementById('calcMethod_A').innerText = `豪宅核實認定 (房地比 ${ (ratio*100).toFixed(2) }% × 20%)`;
+            document.getElementById('result_A').innerText = income.toLocaleString() + " 元";
+            document.getElementById('rateDisplay_A').innerText = "20% (豪宅稅率)";
+
+        } else {
+            luxuryZone.style.display = 'none';
+            // 一般標準率計算
+            document.getElementById('calcMethod_A').innerText = `標準率法 (${distRate}%)`;
+            document.getElementById('rateDisplay_A').innerText = distRate + "%";
+            let income = Math.round(houseVal * (distRate / 100));
+            document.getElementById('result_A').innerText = income.toLocaleString() + " 元";
+        }
+    }
+
+    // --- 情境 B (核實認定) ---
+    function calcLandValB() {
+        let price = parseFloat(document.getElementById('landPricePerSqm').value) || 0;
+        let area = parseFloat(document.getElementById('landAreaSqm').value) || 0;
+        let total = Math.round(price * area);
+        document.getElementById('totalLandVal_B').value = total;
+        calcB();
+    }
+
+    function calcB() {
+        let buy = (parseFloat(document.getElementById('buyPrice_B').value) || 0) * 10000;
+        let sell = (parseFloat(document.getElementById('sellPrice_B').value) || 0) * 10000;
+        let exp = (parseFloat(document.getElementById('expenses_B').value) || 0) * 10000;
+        
+        let houseVal = parseFloat(document.getElementById('houseVal_B').value) || 0;
+        let landVal = parseFloat(document.getElementById('totalLandVal_B').value) || 0;
+
+        // 1. 計算房地比
+        let totalAssessed = houseVal + landVal;
+        let ratio = 0;
+        if (totalAssessed > 0) {
+            ratio = houseVal / totalAssessed;
+        }
+        document.getElementById('houseRatio_B').value = (ratio * 100).toFixed(2) + "%";
+
+        // 2. 計算實際總獲利
+        let totalProfit = sell - buy - exp;
+        document.getElementById('totalProfit_B').innerText = Math.round(totalProfit).toLocaleString() + " 元";
+
+        // 3. 應申報財產交易所得 (依房地比)
+        let finalIncome = Math.round(totalProfit * ratio);
+        if (finalIncome < 0) finalIncome = 0;
+        document.getElementById('finalIncome_B').innerText = finalIncome.toLocaleString() + " 元";
+    }
+
+    // --- Nexus Protection Logic: 防止原始碼檢視與複製 ---
+    document.addEventListener('keydown', function(e) {
+        // 阻擋 F12
+        if (e.key === 'F12' || e.keyCode === 123) {
+            e.preventDefault();
+            return false;
+        }
+        // 阻擋 Ctrl+Shift+I (開發者工具)
+        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
+            e.preventDefault();
+            return false;
+        }
+        // 阻擋 Ctrl+U (檢視原始碼)
+        if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+            e.preventDefault();
+            return false;
+        }
+        // 阻擋 Ctrl+S (另存新檔 - 部分瀏覽器有效)
+        if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // 再次確保右鍵無效 (雙重保險)
+    document.oncontextmenu = function() { return false; };
+</script>
 
 </body>
 </html>
